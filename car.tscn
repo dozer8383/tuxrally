@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnvdhokcntjvr"]
+
+[ext_resource type="Script" uid="uid://5lxmionwlr6c" path="res://car.gd" id="1_06lh1"]
+[ext_resource type="PackedScene" uid="uid://c0r6y0a3mih1" path="res://wheel.tscn" id="1_7822p"]
+[ext_resource type="Texture2D" uid="uid://b2spayeh7yafr" path="res://car_body.png" id="1_uoj53"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06lh1"]
+radius = 16.0
+height = 42.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k61xc"]
+size = Vector2(16.000002, 74)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06lh1"]
+friction = 1.5
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_td361"]
+friction = 1.5
+
+[node name="Car" type="RigidBody2D"]
+gravity_scale = 0.3
+script = ExtResource("1_06lh1")
+enginePower = 3.0
+maxWheelSpeed = 30
+leanPower = 0.6
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -11)
+shape = SubResource("CapsuleShape2D_06lh1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -1.9999992)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_k61xc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-5.000002, -3.999999)
+rotation = -1.5707964
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("1_uoj53")
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
+position = Vector2(-28, -8)
+node_a = NodePath("..")
+node_b = NodePath("../Wheel")
+initial_offset = 28.0
+
+[node name="Wheel" parent="." instance=ExtResource("1_7822p")]
+position = Vector2(-28, 20)
+collision_layer = 2
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_06lh1")
+gravity_scale = 0.4
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Wheel"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+softness = 6.0
+
+[node name="GrooveJoint2D2" type="GrooveJoint2D" parent="."]
+position = Vector2(26, -8)
+node_a = NodePath("..")
+node_b = NodePath("../Wheel2")
+initial_offset = 28.0
+
+[node name="Wheel2" parent="." instance=ExtResource("1_7822p")]
+position = Vector2(26, 20)
+collision_layer = 2
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_td361")
+gravity_scale = 0.4
+angular_damp = 3.86
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Wheel2"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+softness = 6.0

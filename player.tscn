@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://wkcam2kuolhf"]
+
+[ext_resource type="Script" uid="uid://dqj7yeah8iol6" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cwfn783yiexc7" path="res://character.png" id="2_onrkg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 26.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_onrkg")
+JUMP_VELOCITY = -600.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.203125, 0.20312501)
+texture = ExtResource("2_onrkg")

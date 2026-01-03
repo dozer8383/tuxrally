@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpmrvciu2q13f"]
+
+[ext_resource type="Texture2D" uid="uid://dcdl10cgjhhvc" path="res://sky.png" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://dj00036ve4xfp" path="res://level.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://cg3wdq4gsflnv" path="res://camera_2d.gd" id="2_7mycd"]
+[ext_resource type="Texture2D" uid="uid://c0hkbqs4lcbru" path="res://soil.png" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dvdknx50lmddd" path="res://grass (Edited)-1.png.png" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://dnvdhokcntjvr" path="res://car.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dl7jukvt3tfgc" path="res://gui.tscn" id="8_5vw27"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7mycd"]
+friction = 100.0
+bounce = 0.23
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GUI" parent="." instance=ExtResource("8_5vw27")]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D"]
+offset_left = -4.0
+offset_right = 1154.0
+offset_bottom = 653.0
+texture = ExtResource("1_h2yge")
+expand_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("2_7mycd")
+
+[node name="level" type="StaticBody2D" parent="."]
+position = Vector2(-600, 500)
+physics_material_override = SubResource("PhysicsMaterial_7mycd")
+script = ExtResource("2_0xm2m")
+amplitude = 253.735
+
+[node name="Polygon2D" type="Polygon2D" parent="level"]
+texture_repeat = 2
+antialiased = true
+texture = ExtResource("4_1bvp3")
+texture_scale = Vector2(2, 2)
+
+[node name="Line2D" type="Line2D" parent="level"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -10)
+points = PackedVector2Array(-281, -174)
+width = 30.0
+texture = ExtResource("5_lquwl")
+texture_mode = 1
+antialiased = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="level"]
+build_mode = 1
+
+[node name="Car" parent="." instance=ExtResource("6_7mycd")]
+position = Vector2(0, -150)

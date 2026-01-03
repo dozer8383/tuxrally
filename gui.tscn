@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl7jukvt3tfgc"]
+
+[ext_resource type="Script" uid="uid://dg1jviwcjq5if" path="res://new_level_button.gd" id="1_80edf"]
+[ext_resource type="Script" uid="uid://cw4v0bqj62hst" path="res://copy_seed_button.gd" id="2_6lon5"]
+[ext_resource type="Script" uid="uid://cofym8tg4ghra" path="res://load_seed_button.gd" id="3_q8o8l"]
+[ext_resource type="Script" uid="uid://5jvxlkmq8g3o" path="res://meter_meter.gd" id="4_cor1f"]
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="NewLevelButton" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 532.0
+offset_right = 208.0
+offset_bottom = 563.0
+text = "New Level"
+script = ExtResource("1_80edf")
+
+[node name="CopySeedButton" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 568.0
+offset_right = 208.0
+offset_bottom = 599.0
+text = "Copy Current Seed"
+script = ExtResource("2_6lon5")
+
+[node name="LoadSeedButton" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 605.0
+offset_right = 208.0
+offset_bottom = 636.0
+text = "Paste Seed"
+script = ExtResource("3_q8o8l")
+
+[node name="MeterMeter" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.015000001
+anchor_top = 0.044000003
+anchor_right = 0.015000001
+anchor_bottom = 0.044000003
+offset_left = 4.7199993
+offset_top = 466.488
+offset_right = 179.72
+offset_bottom = 489.488
+text = "Distance Traveled: 0 m"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("4_cor1f")
