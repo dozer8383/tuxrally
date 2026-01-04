@@ -1,10 +1,11 @@
 extends RigidBody2D
 
-@onready var frontwheel = get_node("./Wheel")
-@onready var backwheel = get_node("./Wheel2")
-@export var enginePower: float = 0.6
-@export var maxWheelSpeed = 10
-@export var leanPower: float = 1
+@onready var frontwheel = get_node("./GrooveJoint2D/Wheel")
+@onready var backwheel = get_node("./GrooveJoint2D2/Wheel2")
+@onready var head = get_node("./Head")
+@export var enginePower: float = 3
+@export var maxWheelSpeed = 30
+@export var leanPower: float = 0.7
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,3 +24,7 @@ func _physics_process(delta: float) -> void:
 		apply_torque_impulse(100*enginePower*leanPower)
 		if frontwheel.angular_velocity < maxWheelSpeed: frontwheel.apply_torque_impulse(-100*enginePower)
 		if backwheel.angular_velocity < maxWheelSpeed: backwheel.apply_torque_impulse(-100*enginePower)
+
+
+func _on_head_body_entered(body: Node) -> void:
+	get_tree().reload_current_scene()

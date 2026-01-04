@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2j261om1k8xf"]
+
+[ext_resource type="Script" uid="uid://5lxmionwlr6c" path="res://car.gd" id="1_s4pd2"]
+[ext_resource type="Texture2D" uid="uid://dklv7frilyx6m" path="res://truck_body.png" id="2_s4pd2"]
+[ext_resource type="PackedScene" uid="uid://cbrrhfvb8myr0" path="res://monsterWheel.tscn" id="3_i5131"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4pd2"]
+radius = 7.9999995
+height = 62.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k61xc"]
+height = 110.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3jxg0"]
+friction = 1.5
+
+[node name="Truck" type="RigidBody2D"]
+gravity_scale = 0.3
+script = ExtResource("1_s4pd2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-16, -23)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_s4pd2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_k61xc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-6.865, -1.38)
+rotation = -1.5707964
+scale = Vector2(0.13661198, 0.13661201)
+texture = ExtResource("2_s4pd2")
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
+position = Vector2(-31, 3)
+node_a = NodePath("..")
+node_b = NodePath("MonsterWheel")
+length = 35.0
+initial_offset = 17.0
+
+[node name="MonsterWheel" parent="GrooveJoint2D" instance=ExtResource("3_i5131")]
+position = Vector2(0, 17)
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_3jxg0")
+gravity_scale = 0.4
+
+[node name="PinJoint2D" type="PinJoint2D" parent="GrooveJoint2D/MonsterWheel"]
+node_a = NodePath("../../..")
+node_b = NodePath("..")
+softness = 9.0
+
+[node name="GrooveJoint2D2" type="GrooveJoint2D" parent="."]
+position = Vector2(38, 3)
+node_a = NodePath("..")
+node_b = NodePath("MonsterWheel2")
+length = 35.0
+initial_offset = 17.0
+
+[node name="MonsterWheel2" parent="GrooveJoint2D2" instance=ExtResource("3_i5131")]
+position = Vector2(0, 17)
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_3jxg0")
+gravity_scale = 0.4
+
+[node name="PinJoint2D" type="PinJoint2D" parent="GrooveJoint2D2/MonsterWheel2"]
+node_a = NodePath("../../..")
+node_b = NodePath("..")
+softness = 9.0
