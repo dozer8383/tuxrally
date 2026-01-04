@@ -1,47 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl7jukvt3tfgc"]
+[gd_scene load_steps=9 format=3 uid="uid://dl7jukvt3tfgc"]
 
 [ext_resource type="Script" uid="uid://dg1jviwcjq5if" path="res://new_level_button.gd" id="1_80edf"]
+[ext_resource type="Theme" uid="uid://b6nhidr6cyvdi" path="res://gui.tres" id="1_jf511"]
+[ext_resource type="Script" uid="uid://cb53w2kp3hfpw" path="res://gui.gd" id="1_u77ya"]
 [ext_resource type="Script" uid="uid://cw4v0bqj62hst" path="res://copy_seed_button.gd" id="2_6lon5"]
 [ext_resource type="Script" uid="uid://cofym8tg4ghra" path="res://load_seed_button.gd" id="3_q8o8l"]
 [ext_resource type="Script" uid="uid://5jvxlkmq8g3o" path="res://meter_meter.gd" id="4_cor1f"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_0wv8u"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_jf511"]
+font_size = 46
+shadow_size = 11
+shadow_color = Color(0, 0, 0, 0.29411766)
+shadow_offset = Vector2(1, 5.22)
+
 [node name="GUI" type="CanvasLayer"]
 
-[node name="NewLevelButton" type="Button" parent="."]
+[node name="VersionLabel" type="Label" parent="."]
+offset_left = 1071.0
+offset_top = 627.0
+offset_right = 1146.0
+offset_bottom = 642.0
+theme = ExtResource("1_jf511")
+text = "v0.3.0-proto"
+label_settings = SubResource("LabelSettings_0wv8u")
+
+[node name="MeterMeter" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.92100006
+anchor_right = 0.5
+anchor_bottom = 0.92100006
+offset_left = -229.0
+offset_top = -26.808044
+offset_right = 228.0
+offset_bottom = 29.191956
+theme = ExtResource("1_jf511")
+text = "0 m"
+label_settings = SubResource("LabelSettings_jf511")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_cor1f")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_u77ya")
+
+[node name="NewLevelButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 532.0
 offset_right = 208.0
 offset_bottom = 563.0
+theme = ExtResource("1_jf511")
 text = "New Level"
 script = ExtResource("1_80edf")
 
-[node name="CopySeedButton" type="Button" parent="."]
+[node name="CopySeedButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 568.0
 offset_right = 208.0
 offset_bottom = 599.0
+theme = ExtResource("1_jf511")
 text = "Copy Current Seed"
 script = ExtResource("2_6lon5")
 
-[node name="LoadSeedButton" type="Button" parent="."]
+[node name="LoadSeedButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 605.0
 offset_right = 208.0
 offset_bottom = 636.0
+theme = ExtResource("1_jf511")
 text = "Paste Seed"
 script = ExtResource("3_q8o8l")
-
-[node name="MeterMeter" type="Label" parent="."]
-anchors_preset = -1
-anchor_left = 0.015000001
-anchor_top = 0.044000003
-anchor_right = 0.015000001
-anchor_bottom = 0.044000003
-offset_left = 4.7199993
-offset_top = 466.488
-offset_right = 179.72
-offset_bottom = 489.488
-text = "Distance Traveled: 0 m"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("4_cor1f")

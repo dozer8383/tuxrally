@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://dj00036ve4xfp" path="res://level.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://cg3wdq4gsflnv" path="res://camera_2d.gd" id="2_7mycd"]
 [ext_resource type="Texture2D" uid="uid://c0hkbqs4lcbru" path="res://soil.png" id="4_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://dvdknx50lmddd" path="res://grass (Edited)-1.png.png" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dnvdhokcntjvr" path="res://car.tscn" id="6_7mycd"]
+[ext_resource type="Texture2D" uid="uid://yh5xis3ia7av" path="res://topgrass.png" id="6_272bh"]
 [ext_resource type="PackedScene" uid="uid://dl7jukvt3tfgc" path="res://gui.tscn" id="8_5vw27"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7mycd"]
@@ -31,6 +31,9 @@ process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_7mycd")
 
+[node name="Car" parent="." instance=ExtResource("6_7mycd")]
+position = Vector2(0, -150)
+
 [node name="level" type="StaticBody2D" parent="."]
 position = Vector2(-600, 500)
 physics_material_override = SubResource("PhysicsMaterial_7mycd")
@@ -46,15 +49,12 @@ texture_scale = Vector2(2, 2)
 [node name="Line2D" type="Line2D" parent="level"]
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(0, -10)
+position = Vector2(0, -6)
 points = PackedVector2Array(-281, -174)
-width = 30.0
-texture = ExtResource("5_lquwl")
+width = 25.0
+texture = ExtResource("6_272bh")
 texture_mode = 1
 antialiased = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="level"]
 build_mode = 1
-
-[node name="Car" parent="." instance=ExtResource("6_7mycd")]
-position = Vector2(0, -150)

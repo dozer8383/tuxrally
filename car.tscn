@@ -1,13 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnvdhokcntjvr"]
+[gd_scene load_steps=11 format=3 uid="uid://dnvdhokcntjvr"]
 
 [ext_resource type="Script" uid="uid://5lxmionwlr6c" path="res://car.gd" id="1_06lh1"]
 [ext_resource type="PackedScene" uid="uid://c0r6y0a3mih1" path="res://wheel.tscn" id="1_7822p"]
 [ext_resource type="Texture2D" uid="uid://b2spayeh7yafr" path="res://car_body.png" id="1_uoj53"]
 [ext_resource type="Texture2D" uid="uid://dhendltndqdwe" path="res://tuxhead.png" id="4_06lh1"]
+[ext_resource type="Script" uid="uid://b48be3mptoat" path="res://head.gd" id="4_td361"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_72krn"]
+friction = 0.0
+bounce = 0.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k61xc"]
 radius = 7.0
-height = 90.0
+height = 70.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06lh1"]
 friction = 1.5
@@ -19,6 +24,7 @@ friction = 1.5
 radius = 6.0
 
 [node name="Car" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_72krn")
 gravity_scale = 0.3
 script = ExtResource("1_06lh1")
 leanPower = 0.6
@@ -76,6 +82,7 @@ position = Vector2(-8, -21)
 mass = 0.01
 contact_monitor = true
 max_contacts_reported = 10
+script = ExtResource("4_td361")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
 shape = SubResource("CircleShape2D_td361")
@@ -96,7 +103,7 @@ rotation = -1.5707964
 node_a = NodePath("..")
 node_b = NodePath("../Head")
 length = 10.0
-stiffness = 30.0
-damping = 0.1
+stiffness = 15.0
+damping = 0.03
 
 [connection signal="body_entered" from="Head" to="." method="_on_head_body_entered"]
