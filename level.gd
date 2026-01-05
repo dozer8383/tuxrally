@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var levelWidth = 30000
+@export var levelWidth = 3000
 @export var amplitude = 100.0
 @export var groundDepth = 1000
 @export var step = 10

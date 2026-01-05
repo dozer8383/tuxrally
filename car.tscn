@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnvdhokcntjvr"]
+[gd_scene load_steps=12 format=3 uid="uid://dnvdhokcntjvr"]
 
 [ext_resource type="Script" uid="uid://5lxmionwlr6c" path="res://car.gd" id="1_06lh1"]
 [ext_resource type="PackedScene" uid="uid://c0r6y0a3mih1" path="res://wheel.tscn" id="1_7822p"]
 [ext_resource type="Texture2D" uid="uid://b2spayeh7yafr" path="res://car_body.png" id="1_uoj53"]
 [ext_resource type="Texture2D" uid="uid://dhendltndqdwe" path="res://tuxhead.png" id="4_06lh1"]
 [ext_resource type="Script" uid="uid://b48be3mptoat" path="res://head.gd" id="4_td361"]
+[ext_resource type="Texture2D" uid="uid://deqfqa0cb8k36" path="res://grassblade.png" id="6_72krn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_72krn"]
 friction = 0.0
@@ -105,5 +106,51 @@ node_b = NodePath("../Head")
 length = 10.0
 stiffness = 15.0
 damping = 0.03
+
+[node name="GrassBackWheel" type="CPUParticles2D" parent="."]
+position = Vector2(-32, 33)
+emitting = false
+amount = 40
+texture = ExtResource("6_72krn")
+lifetime = 0.75
+randomness = 0.4
+direction = Vector2(-100, -150)
+spread = 20.0
+gravity = Vector2(0, 173.68)
+initial_velocity_max = 101.9
+linear_accel_min = 59.87
+linear_accel_max = 68.79
+radial_accel_min = 56.05
+radial_accel_max = 70.06
+tangential_accel_min = -59.87
+tangential_accel_max = 100.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+color = Color(1.3167266, 1.3167266, 1.3167266, 1)
+
+[node name="GrassFrontWheel" type="CPUParticles2D" parent="."]
+position = Vector2(22, 33)
+emitting = false
+amount = 40
+texture = ExtResource("6_72krn")
+lifetime = 0.75
+randomness = 0.4
+direction = Vector2(-100, -150)
+spread = 20.0
+gravity = Vector2(0, 300)
+initial_velocity_max = 101.9
+linear_accel_min = 59.87
+linear_accel_max = 68.79
+radial_accel_min = 56.05
+radial_accel_max = 70.06
+tangential_accel_min = -59.87
+tangential_accel_max = 100.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+color = Color(1.3167266, 1.3167266, 1.3167266, 1)
 
 [connection signal="body_entered" from="Head" to="." method="_on_head_body_entered"]

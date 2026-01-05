@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dl7jukvt3tfgc"]
+[gd_scene load_steps=11 format=3 uid="uid://dl7jukvt3tfgc"]
 
-[ext_resource type="Script" uid="uid://dg1jviwcjq5if" path="res://new_level_button.gd" id="1_80edf"]
 [ext_resource type="Theme" uid="uid://b6nhidr6cyvdi" path="res://gui.tres" id="1_jf511"]
 [ext_resource type="Script" uid="uid://cb53w2kp3hfpw" path="res://gui.gd" id="1_u77ya"]
 [ext_resource type="Script" uid="uid://cw4v0bqj62hst" path="res://copy_seed_button.gd" id="2_6lon5"]
-[ext_resource type="Script" uid="uid://cofym8tg4ghra" path="res://load_seed_button.gd" id="3_q8o8l"]
 [ext_resource type="Script" uid="uid://5jvxlkmq8g3o" path="res://meter_meter.gd" id="4_cor1f"]
+[ext_resource type="Script" uid="uid://6yilyg3gle4h" path="res://debug_things.gd" id="7_0wv8u"]
+[ext_resource type="Script" uid="uid://bqor2xu8384rt" path="res://fullscreen_button.gd" id="7_p8208"]
+[ext_resource type="Texture2D" uid="uid://djrpe2qme8btk" path="res://pause.png" id="8_67jta"]
+[ext_resource type="Script" uid="uid://dgig3odqwmwul" path="res://quit_button.gd" id="8_axmix"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wv8u"]
 font_size = 12
@@ -24,7 +26,7 @@ offset_top = 627.0
 offset_right = 1146.0
 offset_bottom = 642.0
 theme = ExtResource("1_jf511")
-text = "v0.3.0-proto"
+text = "v0.4.0-proto"
 label_settings = SubResource("LabelSettings_0wv8u")
 
 [node name="MeterMeter" type="Label" parent="."]
@@ -44,39 +46,93 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_cor1f")
 
-[node name="Control" type="Control" parent="."]
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 2
+visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_u77ya")
 
-[node name="NewLevelButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 532.0
-offset_right = 208.0
-offset_bottom = 563.0
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.21568628)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -79.0
+offset_right = 91.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContinueButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jf511")
+text = "Continue"
+
+[node name="NewLevelButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("1_jf511")
 text = "New Level"
-script = ExtResource("1_80edf")
 
-[node name="CopySeedButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 568.0
-offset_right = 208.0
-offset_bottom = 599.0
+[node name="CopySeedButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("1_jf511")
 text = "Copy Current Seed"
 script = ExtResource("2_6lon5")
 
-[node name="LoadSeedButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 605.0
-offset_right = 208.0
-offset_bottom = 636.0
+[node name="LoadSeedButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("1_jf511")
 text = "Paste Seed"
-script = ExtResource("3_q8o8l")
+
+[node name="FullscreenButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jf511")
+text = "Toggle Fullscreen"
+script = ExtResource("7_p8208")
+
+[node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jf511")
+text = "Quit"
+script = ExtResource("8_axmix")
+
+[node name="DebugThings" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("7_0wv8u")
+
+[node name="PauseButton" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -54.0
+offset_right = 57.0
+offset_bottom = -16.0
+grow_vertical = 0
+icon = ExtResource("8_67jta")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="PauseMenu" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/NewLevelButton" to="PauseMenu" method="_on_new_level_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/LoadSeedButton" to="PauseMenu" method="_on_load_seed_button_pressed"]
+[connection signal="pressed" from="PauseButton" to="PauseMenu" method="_on_pause_button_pressed"]

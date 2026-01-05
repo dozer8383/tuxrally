@@ -9,3 +9,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _pressed() -> void:
 	DisplayServer.clipboard_set(str(globals.randomSeed))
+	text = "Copied to clipboard!"
+	await get_tree().create_timer(2.0).timeout
+	text = "Copy Seed"
