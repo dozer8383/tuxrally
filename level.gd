@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var levelWidth = 3000
+@export var levelWidth = 30000
 @export var amplitude = 100.0
 @export var groundDepth = 1000
 @export var step = 10
@@ -22,7 +22,6 @@ func _ready() -> void:
 		surfacePoints.append(Vector2(x, y))
 	for x in range(1000, 1000+levelWidth, step):
 		var noiseVal = noise.get_noise_1d(x*0.1)
-		@warning_ignore("integer_division")
 		var y = (noiseVal * amplitude)-groundDepth
 		#var y = 20
 		surfacePoints.append(Vector2(x, y))
@@ -34,8 +33,7 @@ func _ready() -> void:
 	$CollisionPolygon2D.polygon = polyPoints
 	$Polygon2D.polygon = polyPoints
 	position.y = groundDepth
-	camera.position_smoothing_enabled = false
+	#camera.position_smoothing_enabled = false
 	camera.position.y = noise.get_noise_1d(100)-150-groundDepth
-	await (camera.position.y != noise.get_noise_1d(100)-150-groundDepth)
-	camera.position_smoothing_enabled = true
+	#camera.position_smoothing_enabled = true
 	

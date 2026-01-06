@@ -23,7 +23,7 @@ DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
+window/stretch/aspect="expand"
 
 [editor]
 

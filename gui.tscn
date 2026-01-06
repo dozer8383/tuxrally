@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dl7jukvt3tfgc"]
+[gd_scene load_steps=14 format=3 uid="uid://dl7jukvt3tfgc"]
 
 [ext_resource type="Theme" uid="uid://b6nhidr6cyvdi" path="res://gui.tres" id="1_jf511"]
 [ext_resource type="Script" uid="uid://cb53w2kp3hfpw" path="res://gui.gd" id="1_u77ya"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bqor2xu8384rt" path="res://fullscreen_button.gd" id="7_p8208"]
 [ext_resource type="Texture2D" uid="uid://djrpe2qme8btk" path="res://pause.png" id="8_67jta"]
 [ext_resource type="Script" uid="uid://dgig3odqwmwul" path="res://quit_button.gd" id="8_axmix"]
+[ext_resource type="Script" uid="uid://chbxlqr28eggd" path="res://pause_button.gd" id="9_p8208"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wv8u"]
 font_size = 12
@@ -18,15 +19,29 @@ shadow_size = 11
 shadow_color = Color(0, 0, 0, 0.29411766)
 shadow_offset = Vector2(1, 5.22)
 
+[sub_resource type="InputEventKey" id="InputEventKey_67jta"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_p8208"]
+events = [SubResource("InputEventKey_67jta")]
+
 [node name="GUI" type="CanvasLayer"]
 
 [node name="VersionLabel" type="Label" parent="."]
-offset_left = 1071.0
-offset_top = 627.0
-offset_right = 1146.0
-offset_bottom = 642.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_top = -23.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource("1_jf511")
-text = "v0.4.0-proto"
+text = "v0.4.1-proto"
 label_settings = SubResource("LabelSettings_0wv8u")
 
 [node name="MeterMeter" type="Label" parent="."]
@@ -64,7 +79,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.21568628)
+color = Color(0, 0, 0, 0.29411766)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 layout_mode = 1
@@ -128,9 +143,11 @@ offset_top = -54.0
 offset_right = 57.0
 offset_bottom = -16.0
 grow_vertical = 0
+shortcut = SubResource("Shortcut_p8208")
 icon = ExtResource("8_67jta")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("9_p8208")
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="PauseMenu" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/NewLevelButton" to="PauseMenu" method="_on_new_level_button_pressed"]

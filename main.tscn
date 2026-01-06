@@ -14,24 +14,6 @@ bounce = 0.23
 
 [node name="Node2D" type="Node2D"]
 
-[node name="GUI" parent="." instance=ExtResource("8_5vw27")]
-
-[node name="Parallax2D" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0, 0)
-
-[node name="TextureRect" type="TextureRect" parent="Parallax2D"]
-offset_left = -4.0
-offset_right = 1154.0
-offset_bottom = 653.0
-texture = ExtResource("1_h2yge")
-expand_mode = 2
-
-[node name="Camera2D" type="Camera2D" parent="."]
-physics_interpolation_mode = 1
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("2_7mycd")
-
 [node name="Car" parent="." instance=ExtResource("6_7mycd")]
 position = Vector2(0, -150)
 
@@ -59,3 +41,37 @@ antialiased = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level"]
 build_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -99
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_h2yge")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="GUI" parent="." instance=ExtResource("8_5vw27")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("2_7mycd")

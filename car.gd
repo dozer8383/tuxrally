@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+signal gameOver
+
 @onready var frontWheel = get_node("./GrooveJoint2D/Wheel")
 @onready var backWheel = get_node("./GrooveJoint2D2/Wheel2")
 @onready var head = get_node("./Head")
@@ -8,8 +10,6 @@ extends RigidBody2D
 @export var enginePower: float = 3
 @export var maxWheelSpeed = 30
 @export var leanPower: float = 0.7
-
-signal gameOver
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,6 +47,6 @@ func _on_head_body_entered(body: Node) -> void:
 	if body.is_in_group("Ground"):
 		globals.neckSnapped = true
 		gameOver.emit()
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(3.0,false).timeout
 		globals.neckSnapped = false
 		get_tree().reload_current_scene()
