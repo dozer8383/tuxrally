@@ -13,16 +13,18 @@ bounce = 0.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k61xc"]
 radius = 7.0
-height = 70.0
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06lh1"]
-friction = 1.5
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_td361"]
-friction = 1.5
+height = 62.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_td361"]
 radius = 6.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06lh1"]
+friction = 1.5
+absorbent = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_td361"]
+friction = 1.5
+absorbent = true
 
 [node name="Car" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_72krn")
@@ -41,46 +43,10 @@ rotation = -1.5707964
 scale = Vector2(0.095, 0.095)
 texture = ExtResource("1_uoj53")
 
-[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
-position = Vector2(-28, -8)
-node_a = NodePath("..")
-node_b = NodePath("Wheel")
-initial_offset = 28.0
-
-[node name="Wheel" parent="GrooveJoint2D" instance=ExtResource("1_7822p")]
-position = Vector2(0, 28)
-collision_layer = 2
-mass = 1.5
-physics_material_override = SubResource("PhysicsMaterial_06lh1")
-gravity_scale = 0.4
-
-[node name="PinJoint2D" type="PinJoint2D" parent="GrooveJoint2D/Wheel"]
-node_a = NodePath("../../..")
-node_b = NodePath("..")
-softness = 10.0
-
-[node name="GrooveJoint2D2" type="GrooveJoint2D" parent="."]
-position = Vector2(26, -8)
-node_a = NodePath("..")
-node_b = NodePath("Wheel2")
-initial_offset = 28.0
-
-[node name="Wheel2" parent="GrooveJoint2D2" instance=ExtResource("1_7822p")]
-position = Vector2(0, 28)
-collision_layer = 2
-mass = 1.5
-physics_material_override = SubResource("PhysicsMaterial_td361")
-gravity_scale = 0.4
-angular_damp = 3.86
-
-[node name="PinJoint2D" type="PinJoint2D" parent="GrooveJoint2D2/Wheel2"]
-node_a = NodePath("../../..")
-node_b = NodePath("..")
-softness = 10.0
-
 [node name="Head" type="RigidBody2D" parent="."]
 position = Vector2(-8, -21)
 mass = 0.01
+gravity_scale = 0.4
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("4_td361")
@@ -94,18 +60,12 @@ scale = Vector2(0.14, 0.14)
 texture = ExtResource("4_06lh1")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Head"]
-position = Vector2(0, 6)
+position = Vector2(0, 1)
 node_a = NodePath("../..")
 node_b = NodePath("..")
-
-[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
-position = Vector2(-13, -21)
-rotation = -1.5707964
-node_a = NodePath("..")
-node_b = NodePath("../Head")
-length = 10.0
-stiffness = 15.0
-damping = 0.03
+angular_limit_enabled = true
+angular_limit_lower = -0.27052602
+angular_limit_upper = 0.23212878
 
 [node name="GrassBackWheel" type="CPUParticles2D" parent="."]
 position = Vector2(-32, 33)
@@ -140,5 +100,28 @@ angle_min = -720.0
 angle_max = 720.0
 scale_amount_min = 0.05
 scale_amount_max = 0.1
+
+[node name="Wheel" parent="." instance=ExtResource("1_7822p")]
+position = Vector2(-28, 20)
+collision_layer = 2
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_06lh1")
+gravity_scale = 0.4
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Wheel"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Wheel2" parent="." instance=ExtResource("1_7822p")]
+position = Vector2(26, 20)
+collision_layer = 2
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_td361")
+gravity_scale = 0.4
+angular_damp = 3.86
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Wheel2"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
 
 [connection signal="body_entered" from="Head" to="." method="_on_head_body_entered"]

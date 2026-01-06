@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpmrvciu2q13f"]
+[gd_scene load_steps=11 format=3 uid="uid://bpmrvciu2q13f"]
 
 [ext_resource type="Texture2D" uid="uid://dcdl10cgjhhvc" path="res://sky.png" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dj00036ve4xfp" path="res://level.gd" id="2_0xm2m"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://c0hkbqs4lcbru" path="res://soil.png" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dnvdhokcntjvr" path="res://car.tscn" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://yh5xis3ia7av" path="res://topgrass.png" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://d0qpgmf0c11sb" path="res://flag.png" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dl7jukvt3tfgc" path="res://gui.tscn" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://cas8uytfk061c" path="res://record_flag.gd" id="8_kek77"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7mycd"]
 friction = 100.0
@@ -16,6 +18,7 @@ bounce = 0.23
 
 [node name="Car" parent="." instance=ExtResource("6_7mycd")]
 position = Vector2(0, -150)
+leanPower = 0.0
 
 [node name="Level" type="StaticBody2D" parent="." groups=["Ground"]]
 position = Vector2(-600, 500)
@@ -75,3 +78,24 @@ physics_interpolation_mode = 1
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_7mycd")
+
+[node name="RecordFlag" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_4c57u")
+script = ExtResource("8_kek77")
+
+[node name="Label" type="Label" parent="RecordFlag"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -384.0
+offset_right = -17.0
+offset_bottom = -361.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Best: 0m"
+
+[connection signal="gameOver" from="Car" to="RecordFlag" method="_on_car_game_over"]

@@ -9,9 +9,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if (rotation > 1 or rotation < -1) and not globals.neckSnapped:
-		rotation = 0
-		position = Vector2(-8,-21)
-	if globals.neckSnapped:
-		neckSpring.stiffness = 3
-		neckSpring.damping = 0.03
+	#if (rotation > 1 or rotation < -1) and not globals.neckSnapped:
+		#rotation = 0
+	if not globals.neckSnapped:
+		rotate((0-rotation)*0.75)

@@ -2,8 +2,8 @@ extends RigidBody2D
 
 signal gameOver
 
-@onready var frontWheel = get_node("./GrooveJoint2D/Wheel")
-@onready var backWheel = get_node("./GrooveJoint2D2/Wheel2")
+@onready var frontWheel = get_node("./Wheel")
+@onready var backWheel = get_node("./Wheel2")
 @onready var head = get_node("./Head")
 @onready var grassBack = get_node("./GrassBackWheel")
 @onready var grassFront = get_node("./GrassFrontWheel")
@@ -17,6 +17,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	frontWheel.position.x = -28
+	backWheel.position.x = 26
 	var inAir = 0
 	var frontWheelOnGround = false
 	var backWheelOnGround = false
