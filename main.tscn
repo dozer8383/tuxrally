@@ -18,7 +18,7 @@ bounce = 0.23
 
 [node name="Car" parent="." instance=ExtResource("6_7mycd")]
 position = Vector2(0, -150)
-leanPower = 0.0
+leanPower = 0.1
 
 [node name="Level" type="StaticBody2D" parent="." groups=["Ground"]]
 position = Vector2(-600, 500)

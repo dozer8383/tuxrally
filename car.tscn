@@ -9,7 +9,6 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_72krn"]
 friction = 0.0
-bounce = 0.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k61xc"]
 radius = 7.0
@@ -20,10 +19,12 @@ radius = 6.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06lh1"]
 friction = 1.5
+bounce = 1.0
 absorbent = true
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_td361"]
 friction = 1.5
+bounce = 1.0
 absorbent = true
 
 [node name="Car" type="RigidBody2D"]
@@ -64,8 +65,8 @@ position = Vector2(0, 1)
 node_a = NodePath("../..")
 node_b = NodePath("..")
 angular_limit_enabled = true
-angular_limit_lower = -0.27052602
-angular_limit_upper = 0.23212878
+angular_limit_lower = -1.5707964
+angular_limit_upper = 1.5707964
 
 [node name="GrassBackWheel" type="CPUParticles2D" parent="."]
 position = Vector2(-32, 33)
@@ -111,6 +112,7 @@ gravity_scale = 0.4
 [node name="PinJoint2D" type="PinJoint2D" parent="Wheel"]
 node_a = NodePath("../..")
 node_b = NodePath("..")
+softness = 10.0
 
 [node name="Wheel2" parent="." instance=ExtResource("1_7822p")]
 position = Vector2(26, 20)
@@ -123,5 +125,6 @@ angular_damp = 3.86
 [node name="PinJoint2D" type="PinJoint2D" parent="Wheel2"]
 node_a = NodePath("../..")
 node_b = NodePath("..")
+softness = 10.0
 
 [connection signal="body_entered" from="Head" to="." method="_on_head_body_entered"]

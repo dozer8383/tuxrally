@@ -12,4 +12,4 @@ func _physics_process(delta: float) -> void:
 	#if (rotation > 1 or rotation < -1) and not globals.neckSnapped:
 		#rotation = 0
 	if not globals.neckSnapped:
-		rotate((0-rotation)*0.75)
+		rotate((0-rotation)*0.6)
