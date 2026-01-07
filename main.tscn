@@ -1,21 +1,41 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpmrvciu2q13f"]
+[gd_scene load_steps=14 format=3 uid="uid://bpmrvciu2q13f"]
 
+[ext_resource type="Script" uid="uid://671aosx1wc1j" path="res://main.gd" id="1_efxa6"]
 [ext_resource type="Texture2D" uid="uid://dcdl10cgjhhvc" path="res://sky.png" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dj00036ve4xfp" path="res://level.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://1x5almqyuani" path="res://car_debug.gd" id="2_4c57u"]
 [ext_resource type="Script" uid="uid://cg3wdq4gsflnv" path="res://camera_2d.gd" id="2_7mycd"]
 [ext_resource type="Texture2D" uid="uid://c0hkbqs4lcbru" path="res://soil.png" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dnvdhokcntjvr" path="res://car.tscn" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://yh5xis3ia7av" path="res://topgrass.png" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://d0qpgmf0c11sb" path="res://flag.png" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dl7jukvt3tfgc" path="res://gui.tscn" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://cas8uytfk061c" path="res://record_flag.gd" id="8_kek77"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
+font_size = 8
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7mycd"]
 friction = 100.0
 bounce = 0.23
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_efxa6")
 
 [node name="Car" parent="." instance=ExtResource("6_7mycd")]
 position = Vector2(0, -150)
+
+[node name="CarDebug" type="Label" parent="Car"]
+visible = false
+offset_left = -102.0
+offset_top = -55.0
+offset_right = 102.0
+offset_bottom = -32.0
+text = "debug"
+label_settings = SubResource("LabelSettings_4c57u")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_4c57u")
 
 [node name="Level" type="StaticBody2D" parent="." groups=["Ground"]]
 position = Vector2(-600, 500)
@@ -30,10 +50,9 @@ texture = ExtResource("4_1bvp3")
 texture_scale = Vector2(2, 2)
 
 [node name="Line2D" type="Line2D" parent="Level"]
-texture_filter = 1
+texture_filter = 2
 texture_repeat = 2
 position = Vector2(0, -6)
-points = PackedVector2Array(-281, -174)
 width = 25.0
 texture = ExtResource("6_272bh")
 texture_mode = 1
@@ -75,3 +94,18 @@ physics_interpolation_mode = 1
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_7mycd")
+
+[node name="RecordFlag" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_4c57u")
+script = ExtResource("8_kek77")
+
+[node name="Label" type="Label" parent="RecordFlag"]
+offset_left = -150.0
+offset_top = -130.0
+offset_right = -9.6666565
+offset_bottom = -107.0
+text = "Best: 0m"
+horizontal_alignment = 2
+
+[connection signal="gameOver" from="Car" to="GUI" method="_on_car_game_over"]

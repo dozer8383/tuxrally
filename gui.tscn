@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dl7jukvt3tfgc"]
+[gd_scene load_steps=17 format=3 uid="uid://dl7jukvt3tfgc"]
 
 [ext_resource type="Theme" uid="uid://b6nhidr6cyvdi" path="res://gui.tres" id="1_jf511"]
 [ext_resource type="Script" uid="uid://cb53w2kp3hfpw" path="res://gui.gd" id="1_u77ya"]
 [ext_resource type="Script" uid="uid://cw4v0bqj62hst" path="res://copy_seed_button.gd" id="2_6lon5"]
+[ext_resource type="Script" uid="uid://besnn8w8rjd84" path="res://pause.gd" id="4_axmix"]
 [ext_resource type="Script" uid="uid://5jvxlkmq8g3o" path="res://meter_meter.gd" id="4_cor1f"]
+[ext_resource type="Script" uid="uid://dcyd3jsegiouw" path="res://clear_data_button.gd" id="6_7u6ry"]
 [ext_resource type="Script" uid="uid://6yilyg3gle4h" path="res://debug_things.gd" id="7_0wv8u"]
 [ext_resource type="Script" uid="uid://bqor2xu8384rt" path="res://fullscreen_button.gd" id="7_p8208"]
 [ext_resource type="Texture2D" uid="uid://djrpe2qme8btk" path="res://pause.png" id="8_67jta"]
@@ -12,6 +14,11 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wv8u"]
 font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_axmix"]
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.23137255)
+shadow_offset = Vector2(1, 2.215)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jf511"]
 font_size = 46
@@ -27,6 +34,7 @@ keycode = 4194305
 events = [SubResource("InputEventKey_67jta")]
 
 [node name="GUI" type="CanvasLayer"]
+script = ExtResource("1_u77ya")
 
 [node name="VersionLabel" type="Label" parent="."]
 anchors_preset = 3
@@ -41,19 +49,40 @@ offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("1_jf511")
-text = "v0.4.1-proto"
+text = "v0.5.0-alpha"
 label_settings = SubResource("LabelSettings_0wv8u")
 
-[node name="MeterMeter" type="Label" parent="."]
-anchors_preset = -1
+[node name="RecordMeter" type="Label" parent="."]
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.92100006
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.92100006
-offset_left = -229.0
-offset_top = -26.808044
-offset_right = 228.0
-offset_bottom = 29.191956
+anchor_bottom = 1.0
+offset_left = -228.5
+offset_top = -95.0
+offset_right = 228.5
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_jf511")
+text = "Best: 0 m"
+label_settings = SubResource("LabelSettings_axmix")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_cor1f")
+
+[node name="MeterMeter" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -228.5
+offset_top = -72.0
+offset_right = 228.5
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("1_jf511")
 text = "0 m"
 label_settings = SubResource("LabelSettings_jf511")
@@ -70,7 +99,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_u77ya")
+script = ExtResource("4_axmix")
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
@@ -116,6 +145,12 @@ layout_mode = 2
 theme = ExtResource("1_jf511")
 text = "Paste Seed"
 
+[node name="ClearDataButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jf511")
+text = "Clear Saved Data"
+script = ExtResource("6_7u6ry")
+
 [node name="FullscreenButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_jf511")
@@ -138,10 +173,10 @@ script = ExtResource("7_0wv8u")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -54.0
-offset_right = 57.0
-offset_bottom = -16.0
+offset_left = 8.0
+offset_top = -46.0
+offset_right = 47.0
+offset_bottom = -8.0
 grow_vertical = 0
 shortcut = SubResource("Shortcut_p8208")
 icon = ExtResource("8_67jta")

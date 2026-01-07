@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnvdhokcntjvr"]
+[gd_scene load_steps=11 format=3 uid="uid://dnvdhokcntjvr"]
 
 [ext_resource type="Script" uid="uid://5lxmionwlr6c" path="res://car.gd" id="1_06lh1"]
 [ext_resource type="PackedScene" uid="uid://c0r6y0a3mih1" path="res://wheel.tscn" id="1_7822p"]
 [ext_resource type="Texture2D" uid="uid://b2spayeh7yafr" path="res://car_body.png" id="1_uoj53"]
 [ext_resource type="Texture2D" uid="uid://dhendltndqdwe" path="res://tuxhead.png" id="4_06lh1"]
 [ext_resource type="Script" uid="uid://b48be3mptoat" path="res://head.gd" id="4_td361"]
+[ext_resource type="PhysicsMaterial" uid="uid://dhv8ivb4wpeco" path="res://tire.tres" id="4_v0hk8"]
 [ext_resource type="Texture2D" uid="uid://deqfqa0cb8k36" path="res://grassblade.png" id="6_72krn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_72krn"]
@@ -14,12 +15,6 @@ bounce = 0.4
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k61xc"]
 radius = 7.0
 height = 70.0
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06lh1"]
-friction = 1.5
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_td361"]
-friction = 1.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_td361"]
 radius = 6.0
@@ -51,13 +46,13 @@ initial_offset = 28.0
 position = Vector2(0, 28)
 collision_layer = 2
 mass = 1.5
-physics_material_override = SubResource("PhysicsMaterial_06lh1")
+physics_material_override = ExtResource("4_v0hk8")
 gravity_scale = 0.4
 
 [node name="PinJoint2D" type="PinJoint2D" parent="GrooveJoint2D/Wheel"]
 node_a = NodePath("../../..")
 node_b = NodePath("..")
-softness = 10.0
+softness = 9.0
 
 [node name="GrooveJoint2D2" type="GrooveJoint2D" parent="."]
 position = Vector2(26, -8)
@@ -69,14 +64,13 @@ initial_offset = 28.0
 position = Vector2(0, 28)
 collision_layer = 2
 mass = 1.5
-physics_material_override = SubResource("PhysicsMaterial_td361")
+physics_material_override = ExtResource("4_v0hk8")
 gravity_scale = 0.4
-angular_damp = 3.86
 
 [node name="PinJoint2D" type="PinJoint2D" parent="GrooveJoint2D2/Wheel2"]
 node_a = NodePath("../../..")
 node_b = NodePath("..")
-softness = 10.0
+softness = 9.0
 
 [node name="Head" type="RigidBody2D" parent="."]
 position = Vector2(-8, -21)

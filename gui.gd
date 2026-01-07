@@ -1,27 +1,24 @@
-extends Control
+extends CanvasLayer
 
-@onready var tree = get_tree()
+@onready var car = get_node("../Car")
+@onready var meterometer = get_node("MeterMeter")
 
+var highestDistance = 0
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if globals.neckSnapped:
-		visible = false
+	var currentDistance: int = round(car.position.x/50)
+	if currentDistance > highestDistance:
+		highestDistance = currentDistance
+	meterometer.text = str(highestDistance)+" m"
 
-func _on_pause_button_pressed():
-	tree.paused = true
-	show()
 
-func _on_continue_button_pressed():
-	tree.paused = false
-	hide()
-
-func _on_new_level_button_pressed() -> void:
-	tree.paused = false
-	hide()
-	get_tree().reload_current_scene()
-
-func _on_load_seed_button_pressed() -> void:
-	globals.randomSeed = int(DisplayServer.clipboard_get())
-	globals.doNotPickSeed = true
-	tree.paused = false
-	hide()
-	get_tree().reload_current_scene()
+func _on_car_game_over() -> void:
+	if highestDistance > globals.bestDistance:
+		globals.bestDistance = highestDistance
+		var file = FileAccess.open("user://save.dat", FileAccess.WRITE)
+		file.store_string(str(globals.bestDistance))

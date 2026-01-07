@@ -20,6 +20,9 @@ func _physics_process(delta: float) -> void:
 	var inAir = 0
 	var frontWheelOnGround = false
 	var backWheelOnGround = false
+	if position.x < -100:
+		position.x = -100
+		linear_velocity.x = 0
 	for body in frontWheel.get_colliding_bodies():
 		if body.is_in_group("Ground"): frontWheelOnGround = true
 	for body in backWheel.get_colliding_bodies():
@@ -36,12 +39,12 @@ func _physics_process(delta: float) -> void:
 		grassBack.emitting = false
 	if Input.is_action_pressed("moveRight") and not globals.neckSnapped:
 		apply_torque_impulse(-100*enginePower*leanPower*(inAir+1))
-		if frontWheel.angular_velocity < maxWheelSpeed: frontWheel.apply_torque_impulse(100*enginePower)
-		if backWheel.angular_velocity < maxWheelSpeed: backWheel.apply_torque_impulse(100*enginePower)
+		if abs(frontWheel.angular_velocity) < maxWheelSpeed: frontWheel.apply_torque_impulse(100*enginePower)
+		if abs(backWheel.angular_velocity) < maxWheelSpeed: backWheel.apply_torque_impulse(100*enginePower)
 	if Input.is_action_pressed("moveLeft") and not globals.neckSnapped:
 		apply_torque_impulse(100*enginePower*leanPower*(inAir+1))
-		if frontWheel.angular_velocity < maxWheelSpeed: frontWheel.apply_torque_impulse(-100*enginePower)
-		if backWheel.angular_velocity < maxWheelSpeed: backWheel.apply_torque_impulse(-100*enginePower)
+		if abs(frontWheel.angular_velocity) < maxWheelSpeed: frontWheel.apply_torque_impulse(-100*enginePower)
+		if abs(backWheel.angular_velocity) < maxWheelSpeed: backWheel.apply_torque_impulse(-100*enginePower)
 
 func _on_head_body_entered(body: Node) -> void:
 	if body.is_in_group("Ground"):
